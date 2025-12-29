@@ -1,26 +1,228 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Minimal Miami Palette */
+  --white: #FFFFFF;
+  --off-white: #FAFAFA;
+  --light-gray: #F5F5F5;
+  --mid-gray: #E8E8E8;
+  --charcoal: #1A1A1A;
+  --charcoal-light: #3A3A3A;
+  --gold: #C9A227;
+  --gold-light: #E5C76B;
+  --coral: #E8907A;
+  --seafoam: #7EC8B8;
+  --teal-deep: #1A3A3A;
+
+  --background: var(--white);
+  --foreground: var(--charcoal);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-white: var(--white);
+  --color-off-white: var(--off-white);
+  --color-light-gray: var(--light-gray);
+  --color-mid-gray: var(--mid-gray);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-light: var(--charcoal-light);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-coral: var(--coral);
+  --color-seafoam: var(--seafoam);
+  --color-teal-deep: var(--teal-deep);
+  --color-cream: #FAF6F0;
+  --color-cream-dark: #F0E8DC;
+  --color-blush: #FADADD;
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-outfit);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Subtle Art Deco Pattern */
+.art-deco-pattern {
+  background-image:
+    linear-gradient(135deg, transparent 25%, var(--charcoal) 25%, var(--charcoal) 26%, transparent 26%),
+    linear-gradient(225deg, transparent 25%, var(--charcoal) 25%, var(--charcoal) 26%, transparent 26%),
+    linear-gradient(45deg, transparent 25%, var(--charcoal) 25%, var(--charcoal) 26%, transparent 26%),
+    linear-gradient(315deg, transparent 25%, var(--charcoal) 25%, var(--charcoal) 26%, transparent 26%);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 0, 30px -30px, 0 30px;
+  opacity: 0.03;
+}
+
+/* Sunburst Effect */
+.sunburst {
+  background: conic-gradient(from 0deg,
+      var(--charcoal) 0deg 10deg,
+      transparent 10deg 20deg,
+      var(--charcoal) 20deg 30deg,
+      transparent 30deg 40deg,
+      var(--charcoal) 40deg 50deg,
+      transparent 50deg 60deg,
+      var(--charcoal) 60deg 70deg,
+      transparent 70deg 80deg,
+      var(--charcoal) 80deg 90deg,
+      transparent 90deg 100deg,
+      var(--charcoal) 100deg 110deg,
+      transparent 110deg 120deg,
+      var(--charcoal) 120deg 130deg,
+      transparent 130deg 140deg,
+      var(--charcoal) 140deg 150deg,
+      transparent 150deg 160deg,
+      var(--charcoal) 160deg 170deg,
+      transparent 170deg 180deg,
+      var(--charcoal) 180deg 190deg,
+      transparent 190deg 200deg,
+      var(--charcoal) 200deg 210deg,
+      transparent 210deg 220deg,
+      var(--charcoal) 220deg 230deg,
+      transparent 230deg 240deg,
+      var(--charcoal) 240deg 250deg,
+      transparent 250deg 260deg,
+      var(--charcoal) 260deg 270deg,
+      transparent 270deg 280deg,
+      var(--charcoal) 280deg 290deg,
+      transparent 290deg 300deg,
+      var(--charcoal) 300deg 310deg,
+      transparent 310deg 320deg,
+      var(--charcoal) 320deg 330deg,
+      transparent 330deg 340deg,
+      var(--charcoal) 340deg 350deg,
+      transparent 350deg 360deg);
+  opacity: 0.04;
+}
+
+/* Chevron Pattern */
+.chevron-pattern {
+  background:
+    linear-gradient(135deg, var(--charcoal) 25%, transparent 25%) -20px 0,
+    linear-gradient(225deg, var(--charcoal) 25%, transparent 25%) -20px 0,
+    linear-gradient(315deg, var(--charcoal) 25%, transparent 25%),
+    linear-gradient(45deg, var(--charcoal) 25%, transparent 25%);
+  background-size: 40px 40px;
+  opacity: 0.03;
+}
+
+/* Animation Classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Delay utilities */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--seafoam);
+  color: var(--charcoal);
+}
+
+/* Minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mid-gray);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--charcoal);
+}
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
