@@ -204,11 +204,6 @@ export default function AboutPage() {
                                             alt={member.name}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-all duration-500" />
-
-                                        {/* Minimal corners */}
-                                        <div className="absolute top-4 left-4 w-6 h-6 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                        <div className="absolute bottom-4 right-4 w-6 h-6 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                     </div>
 
                                     <div className="mt-6 text-center">
