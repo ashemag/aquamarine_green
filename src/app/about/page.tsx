@@ -15,7 +15,7 @@ const team = [
         name: 'Lily Schwabe',
         role: 'Founder',
         email: 'lily@aquamarinegreen.com',
-        image: '/team/lily-schwabe.jpg',
+        image: '/team/lily-schwabe.png',
     },
     {
         name: 'Ben Peress',

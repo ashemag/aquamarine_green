@@ -16,16 +16,16 @@ export default function SecretsHomePage() {
             title: "Legacy Website",
             subtitle: "aquamarine-green.net",
             image: "/secrets-images/aqua-logo.png",
-            href: "https://aquamarine-green.net",
-            external: true,
-            description: "Visit the original Aqua Marine Green website",
+            href: "/secrets/background",
+            isLogo: true,
+            description: "Browse the archived Aqua Marine Green website",
         },
         {
             title: "Beach Haven West",
             subtitle: "Photo Gallery",
             image: "/secrets-images/Aqua_Gallery_Pics_1.jpg",
-            href: "/secrets/projects/beach-haven-west",
-            external: false,
+            href: "/secrets/beach-haven-west",
+            isLogo: false,
             description: "View the Beach Haven West project gallery",
         },
     ];
@@ -45,8 +45,6 @@ export default function SecretsHomePage() {
                         <Link
                             key={index}
                             href={option.href}
-                            target={option.external ? "_blank" : undefined}
-                            rel={option.external ? "noopener noreferrer" : undefined}
                             className="group block"
                         >
                             <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
@@ -56,16 +54,9 @@ export default function SecretsHomePage() {
                                         alt={option.title}
                                         width={300}
                                         height={225}
-                                        className={`object-cover group-hover:scale-105 transition-transform duration-500 ${option.external ? "w-2/3 h-auto drop-shadow-lg" : "w-full h-full absolute inset-0"
+                                        className={`object-cover group-hover:scale-105 transition-transform duration-500 ${option.isLogo ? "w-2/3 h-auto drop-shadow-lg" : "w-full h-full absolute inset-0"
                                             }`}
                                     />
-                                    {option.external && (
-                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                            </svg>
-                                        </div>
-                                    )}
                                 </div>
                                 <div className="p-6">
                                     <h3 className="font-semibold text-lg text-slate-800 group-hover:text-[#2d6a8a] transition-colors">
