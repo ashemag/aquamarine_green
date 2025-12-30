@@ -84,13 +84,13 @@ export default function HeroVideo() {
                 className={`absolute inset-0 z-20 bg-white flex items-center justify-center transition-opacity duration-1000 ${isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
                     }`}
             >
-                <div className="text-center px-6 max-w-md mx-auto">
+                <div className="text-center px-6 max-w-md lg:max-w-none mx-auto">
                     {/* Small diamond logo matching text */}
                     <div className="relative w-4 h-4 md:w-5 md:h-5 mx-auto mb-4">
                         <div className="absolute inset-0 border border-charcoal/30 rotate-45" />
                         <div className="absolute inset-0.5 md:inset-1 bg-charcoal/30 rotate-45" />
                     </div>
-                    <p className="font-display text-sm md:text-base text-charcoal/80 tracking-wide leading-relaxed font-normal">
+                    <p className="font-display text-sm md:text-base text-charcoal/80 tracking-wide leading-relaxed font-normal lg:whitespace-nowrap">
                         Blending modern elegance with intelligent design to create extraordinary spaces
                     </p>
                     <p className="font-display text-xs md:text-base text-charcoal/50 mt-2 italic font-normal">
