@@ -1,31 +1,17 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import HeroVideo from '@/components/HeroVideo';
 
-/* FEATURED PROJECTS DATA - COMMENTED OUT FOR NOW
 const featuredProjects = [
   {
-    id: 1,
-    title: 'The Meridian',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+    id: 'kenilworth-1',
+    title: 'Kenilworth-1',
+    category: 'Design Build',
+    image: '/projects/kenilworth-1/cover.jpg',
     year: '2024',
-  },
-  {
-    id: 2,
-    title: 'Azure Tower',
-    category: 'Commercial',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
-    year: '2024',
-  },
-  {
-    id: 3,
-    title: 'Palm Court Estate',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-    year: '2023',
+    href: '/projects/kenilworth-1',
   },
 ];
-*/
 
 export default function Home() {
   return (
@@ -54,24 +40,21 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Coming Soon */}
-          <p className="font-display text-sm text-charcoal/50 tracking-wide animate-pulse">
-            Coming Soon...
-          </p>
-
-          {/* PROJECTS GRID - COMMENTED OUT FOR NOW
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {featuredProjects.map((project, index) => (
-              <article
+              <Link
+                href={project.href}
                 key={project.id}
-                className="group relative bg-light-gray overflow-hidden"
+                className="group relative bg-light-gray overflow-hidden block"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <img
+                <div className="relative aspect-[4/3] sm:aspect-[4/5] overflow-hidden">
+                  <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-all duration-500" />
                   <div className="absolute top-6 left-6 w-6 h-6 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-all duration-500" />
@@ -85,10 +68,21 @@ export default function Home() {
                     {project.title}
                   </h3>
                 </div>
-              </article>
+              </Link>
             ))}
+
+            {/* More Coming Soon */}
+            <div className="relative bg-light-gray overflow-hidden flex items-center justify-center aspect-[4/3] sm:aspect-[4/5]">
+              <div className="text-center p-4 md:p-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 border border-charcoal/10 flex items-center justify-center">
+                  <span className="text-charcoal/20 text-xl md:text-2xl">+</span>
+                </div>
+                <p className="font-body text-charcoal/30 text-[10px] md:text-xs tracking-[0.15em] uppercase">
+                  More Coming Soon
+                </p>
+              </div>
+            </div>
           </div>
-          */}
         </div>
       </section>
 
@@ -97,16 +91,18 @@ export default function Home() {
         <div className="absolute inset-0 art-deco-pattern opacity-50" />
 
         <div className="relative w-full px-4 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
             {/* Image Side */}
             <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
-                alt="Luxury Miami home"
+              <Image
+                src="/projects/kenilworth-1/image-12.jpg"
+                alt="Art gallery hallway in Kenilworth-1 project"
+                width={800}
+                height={600}
                 className="w-full aspect-[4/3] object-cover"
               />
-              {/* Minimal frame */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border border-white/10 -z-10" />
+              {/* Minimal frame - hidden on mobile */}
+              <div className="absolute -bottom-4 -right-4 w-full h-full border border-white/10 -z-10 hidden md:block" />
             </div>
 
             {/* Content Side */}

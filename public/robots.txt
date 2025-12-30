@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Block the archived/secrets section from search engines
+User-agent: *
+Disallow: /secrets/
+Disallow: /secrets-images/
+
