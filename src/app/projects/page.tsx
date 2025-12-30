@@ -78,21 +78,16 @@ const categories = ['All', 'Residential', 'Commercial', 'Historic Renovation', '
 export default function ProjectsPage() {
     return (
         <>
-            {/* Hero Section */}
-            <section className="relative py-16 md:py-32 bg-charcoal overflow-hidden">
-                <div className="absolute inset-0 art-deco-pattern opacity-50" />
-
-                <div className="relative w-full px-4 sm:px-8 lg:px-12">
-                    <span className="text-white/30 font-body text-xs tracking-[0.2em] uppercase">Our Work</span>
-
-                    <h1 className="font-display text-4xl md:text-6xl text-white mt-4 mb-6">
-                        Projects
-                    </h1>
-
-                    <p className="font-body text-white/50 text-base max-w-xl">
-                        Explore our portfolio of distinguished projects spanning residential,
-                        commercial, and historic restoration work throughout Miami.
-                    </p>
+            {/* Elegant Title */}
+            <section className="pt-12 md:pt-20 pb-8 md:pb-12 bg-white">
+                <div className="w-full px-4 sm:px-8 lg:px-12">
+                    <div className="flex items-center gap-6">
+                        <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-transparent to-charcoal/10" />
+                        <h1 className="font-display text-3xl md:text-5xl text-charcoal tracking-wide">
+                            Our Projects
+                        </h1>
+                        <div className="hidden md:block h-px flex-1 bg-gradient-to-l from-transparent to-charcoal/10" />
+                    </div>
                 </div>
             </section>
 

@@ -220,6 +220,7 @@ export default function Home() {
           </p>
           <Link
             href="/contact"
+            scroll={false}
             className="inline-block px-10 py-4 bg-charcoal text-white font-body tracking-[0.15em] uppercase text-xs hover:bg-seafoam hover:text-charcoal transition-colors duration-300"
           >
             Start a Conversation

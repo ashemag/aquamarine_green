@@ -28,8 +28,17 @@ export default function Navigation() {
                     >
                         {/* Minimal geometric logo mark */}
                         <div className="relative w-8 h-8">
-                            <div className="absolute inset-0 border border-seafoam rotate-45" />
-                            <div className="absolute inset-1.5 bg-seafoam rotate-45" />
+                            <div className="absolute inset-0 border border-seafoam rotate-45 transition-all duration-300 group-hover:scale-110 group-hover:border-seafoam/70" />
+                            <div className="absolute inset-1.5 bg-seafoam rotate-45 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_16px_rgba(126,200,184,0.6)]" />
+
+                            {/* PULSE EFFECT (active) */}
+                            <div className="absolute inset-0 border border-seafoam rotate-45 opacity-0 group-hover:animate-logo-pulse" />
+
+                            {/* SHIMMER EFFECT (commented out - uncomment to revert)
+                            <div className="absolute -inset-1 overflow-hidden rounded-sm">
+                                <div className="absolute inset-0 w-[300%] h-full -left-full -translate-x-full group-hover:translate-x-[150%] duration-0 group-hover:duration-700 transition-transform ease-out bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+                            </div>
+                            */}
                         </div>
                         <div className="flex flex-col">
                             <span className="font-display text-lg font-medium text-charcoal tracking-wider transition-colors duration-500 group-hover:text-seafoam">

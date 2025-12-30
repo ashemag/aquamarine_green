@@ -12,12 +12,12 @@ export default function HeroVideo() {
         // Start the transition after a brief delay
         const timer1 = setTimeout(() => {
             setIsLoaded(true);
-        }, 800);
+        }, 1600);
 
         // Start revealing video
         const timer2 = setTimeout(() => {
             setShowVideo(true);
-        }, 1200);
+        }, 2000);
 
         // Animate pixelation reduction
         const timer3 = setTimeout(() => {
@@ -31,7 +31,7 @@ export default function HeroVideo() {
                 });
             }, 50);
             return () => clearInterval(pixelInterval);
-        }, 1400);
+        }, 2200);
 
         return () => {
             clearTimeout(timer1);
@@ -74,16 +74,26 @@ export default function HeroVideo() {
                 />
             )}
 
+            {/* Bottom dark gradient overlay */}
+            <div
+                className={`absolute inset-x-0 bottom-0 h-2/3 z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-1000 ${showVideo ? 'opacity-100' : 'opacity-0'}`}
+            />
+
             {/* White intro screen with text */}
             <div
                 className={`absolute inset-0 z-20 bg-white flex items-center justify-center transition-opacity duration-1000 ${isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
                     }`}
             >
-                <div className="text-center px-6">
-                    <p className="font-display text-sm md:text-base lg:text-lg text-charcoal/80 tracking-wide leading-tight font-normal">
+                <div className="text-center px-6 max-w-md mx-auto">
+                    {/* Small diamond logo matching text */}
+                    <div className="relative w-4 h-4 md:w-5 md:h-5 mx-auto mb-4">
+                        <div className="absolute inset-0 border border-charcoal/30 rotate-45" />
+                        <div className="absolute inset-0.5 md:inset-1 bg-charcoal/30 rotate-45" />
+                    </div>
+                    <p className="font-display text-sm md:text-base text-charcoal/80 tracking-wide leading-relaxed font-normal">
                         Blending modern elegance with intelligent design to create extraordinary spaces
                     </p>
-                    <p className="font-display text-lg md:text-base text-charcoal/50 mt-2 italic font-normal">
+                    <p className="font-display text-xs md:text-base text-charcoal/50 mt-2 italic font-normal">
                         Miami, Bal Harbour, and the Palm Beach Areas
                     </p>
                 </div>
@@ -91,7 +101,7 @@ export default function HeroVideo() {
 
             {/* Bottom bar - tagline left, CTAs right */}
             <div
-                className={`absolute bottom-0 left-0 right-0 z-30 w-full px-4 sm:px-8 lg:px-12 py-4 pb-6 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-6 bg-gradient-to-t from-black/50 via-black/30 to-transparent transition-all duration-1000 ${showVideo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                className={`absolute bottom-0 left-0 right-0 z-30 w-full px-4 sm:px-8 lg:px-12 py-4 pb-6 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 transition-all duration-1000 ${showVideo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                     }`}
                 style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
             >
@@ -99,16 +109,16 @@ export default function HeroVideo() {
                     Blending modern elegance with intelligent design to create extraordinary spaces · <span className="italic">Miami, Bal Harbour, and the Palm Beach Areas</span>
                 </p>
 
-                <div className="flex flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                     <Link
                         href="/projects"
-                        className="group px-6 md:px-8 py-3 bg-white text-charcoal font-body tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-[11px] transition-all duration-300 hover:bg-seafoam"
+                        className="group flex-1 md:flex-none text-center px-6 md:px-8 py-3.5 md:py-3 bg-white text-charcoal font-body tracking-[0.15em] md:tracking-[0.2em] uppercase text-[11px] md:text-[11px] transition-all duration-300 hover:bg-seafoam"
                     >
                         View Our Work
                     </Link>
                     <Link
                         href="/contact"
-                        className="group px-6 md:px-8 py-3 border border-white/50 text-white font-body tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-[11px] transition-all duration-300 hover:bg-white hover:text-charcoal hover:border-white"
+                        className="group flex-1 md:flex-none text-center px-6 md:px-8 py-3.5 md:py-3 border border-white/50 text-white font-body tracking-[0.15em] md:tracking-[0.2em] uppercase text-[11px] md:text-[11px] transition-all duration-300 hover:bg-white hover:text-charcoal hover:border-white"
                     >
                         Start Your Project
                     </Link>
