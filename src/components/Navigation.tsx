@@ -7,7 +7,6 @@ import { useState } from 'react';
 const navItems = [
     { name: 'Projects', href: '/projects' },
     { name: 'About', href: '/about' },
-    { name: 'News', href: '/news' },
     { name: 'Contact', href: '/contact' },
 ];
 
@@ -49,13 +48,13 @@ export default function Navigation() {
                                 key={item.name}
                                 href={item.href}
                                 className={`relative py-2 font-body text-xs tracking-[0.2em] uppercase transition-colors duration-300 ${pathname === item.href
-                                    ? 'text-charcoal'
+                                    ? 'text-seafoam'
                                     : 'text-charcoal/50 hover:text-seafoam'
                                     }`}
                             >
                                 {item.name}
                                 {/* Minimal active indicator */}
-                                <span className={`absolute -bottom-1 left-0 h-px bg-charcoal transition-all duration-300 ${pathname === item.href ? 'w-full' : 'w-0'
+                                <span className={`absolute -bottom-1 left-0 h-px bg-seafoam transition-all duration-300 ${pathname === item.href ? 'w-full' : 'w-0'
                                     }`} />
                             </Link>
                         ))}
@@ -95,7 +94,7 @@ export default function Navigation() {
                             href={item.href}
                             onClick={() => setIsMenuOpen(false)}
                             className={`block py-3 font-body text-sm tracking-[0.15em] uppercase transition-all duration-300 ${pathname === item.href
-                                ? 'text-charcoal'
+                                ? 'text-seafoam'
                                 : 'text-charcoal/40 hover:text-seafoam'
                                 }`}
                             style={{ animationDelay: `${index * 100}ms` }}

@@ -41,7 +41,7 @@ export default function HeroVideo() {
     }, []);
 
     return (
-        <section className="relative h-[calc(100vh-5rem)] overflow-hidden bg-white">
+        <section className="relative h-[calc(100svh-5rem)] min-h-[400px] overflow-hidden bg-white">
             {/* Video Background */}
             <video
                 autoPlay
@@ -81,21 +81,22 @@ export default function HeroVideo() {
             >
                 <div className="text-center px-6">
                     <p className="font-display text-sm md:text-base lg:text-lg text-charcoal/80 tracking-wide leading-tight font-normal">
-                        Blending modern elegance with sustainable design
+                        Blending modern elegance with intelligent design to create extraordinary spaces
                     </p>
                     <p className="font-display text-lg md:text-base text-charcoal/50 mt-2 italic font-normal">
-                        Miami, FL
+                        Miami, Bal Harbour, and the Palm Beach Areas
                     </p>
                 </div>
             </div>
 
             {/* Bottom bar - tagline left, CTAs right */}
             <div
-                className={`absolute bottom-0 left-0 right-0 z-30 w-full px-4 sm:px-8 lg:px-12 py-6 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 bg-gradient-to-t from-black/30 to-transparent transition-all duration-1000 ${showVideo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                className={`absolute bottom-0 left-0 right-0 z-30 w-full px-4 sm:px-8 lg:px-12 py-4 pb-6 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-6 bg-gradient-to-t from-black/50 via-black/30 to-transparent transition-all duration-1000 ${showVideo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                     }`}
+                style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
             >
-                <p className="font-body text-sm md:text-base text-white tracking-wide">
-                    Blending modern elegance with sustainable design · <span className="italic">Miami, FL</span>
+                <p className="hidden md:block font-body text-sm md:text-base text-white tracking-wide">
+                    Blending modern elegance with intelligent design to create extraordinary spaces · <span className="italic">Miami, Bal Harbour, and the Palm Beach Areas</span>
                 </p>
 
                 <div className="flex flex-row gap-3">

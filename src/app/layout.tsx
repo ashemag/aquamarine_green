@@ -18,7 +18,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "Aquamarine Green | Miami Design-Build",
-  description: "Blending modern elegance with sustainable design to create extraordinary spaces in Miami.",
+  description: "Blending modern elegance with intelligent design to create extraordinary spaces in Miami, Bal Harbour, and the Palm Beach Areas.",
   icons: {
     icon: '/icon.svg',
   },
