@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Projects | Aquamarine Green',
+    description: 'Explore our portfolio of design-build, interior design, and renovation projects across Miami, Bal Harbour, and the Palm Beach Areas.',
+    openGraph: {
+        title: 'Projects | Aquamarine Green',
+        description: 'Explore our portfolio of design-build, interior design, and renovation projects in Miami.',
+    },
+};
+
+/* PROJECTS DATA - COMMENTED OUT FOR NOW
 const projects = [
     {
         id: 1,
@@ -72,8 +84,9 @@ const projects = [
         description: 'Creative workspace honoring the neighborhood\'s artistic spirit.',
     },
 ];
+*/
 
-const categories = ['All', 'Residential', 'Commercial', 'Historic Renovation', 'Hospitality', 'Mixed Use'];
+const categories = ['All', 'Interior Design', 'Commercial', 'Renovation'];
 
 export default function ProjectsPage() {
     return (
@@ -81,9 +94,9 @@ export default function ProjectsPage() {
             {/* Elegant Title */}
             <section className="pt-12 md:pt-20 pb-8 md:pb-12 bg-white">
                 <div className="w-full px-4 sm:px-8 lg:px-12">
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center justify-center gap-6">
                         <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-transparent to-charcoal/10" />
-                        <h1 className="font-display text-3xl md:text-5xl text-charcoal tracking-wide">
+                        <h1 className="font-display text-3xl md:text-5xl text-charcoal tracking-wide text-center">
                             Our Projects
                         </h1>
                         <div className="hidden md:block h-px flex-1 bg-gradient-to-l from-transparent to-charcoal/10" />
@@ -92,7 +105,7 @@ export default function ProjectsPage() {
             </section>
 
             {/* Filter Bar */}
-            <section className="py-4 md:py-6 bg-white border-b border-charcoal/5 sticky top-20 z-40 backdrop-blur-md bg-white/95">
+            <section className="py-4 md:py-6 bg-white border-b border-charcoal/5">
                 <div className="w-full px-4 sm:px-8 lg:px-12">
                     <div className="flex gap-2 md:gap-3 justify-start md:justify-center overflow-x-auto pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
                         {categories.map((category, index) => (
@@ -110,7 +123,34 @@ export default function ProjectsPage() {
                 </div>
             </section>
 
-            {/* Projects Grid */}
+            {/* Coming Soon */}
+            <section className="py-32 md:py-48 bg-white">
+                <div className="w-full px-4 sm:px-8 lg:px-12 text-center">
+                    <p className="font-display text-sm md:text-base text-charcoal/50 tracking-wide animate-pulse">
+                        Coming Soon...
+                    </p>
+                </div>
+            </section>
+
+            {/* PROJECTS GRID - COMMENTED OUT FOR NOW
+            <section className="py-4 md:py-6 bg-white border-b border-charcoal/5">
+                <div className="w-full px-4 sm:px-8 lg:px-12">
+                    <div className="flex gap-2 md:gap-3 justify-start md:justify-center overflow-x-auto pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
+                        {categories.map((category, index) => (
+                            <button
+                                key={category}
+                                className={`px-4 md:px-5 py-2 font-body text-[10px] tracking-[0.15em] uppercase transition-all duration-300 whitespace-nowrap flex-shrink-0 ${index === 0
+                                    ? 'bg-charcoal text-white'
+                                    : 'bg-transparent text-charcoal/40 border border-charcoal/10 hover:border-charcoal hover:text-charcoal'
+                                    }`}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             <section className="py-12 md:py-20 bg-white">
                 <div className="w-full px-4 sm:px-8 lg:px-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -128,16 +168,13 @@ export default function ProjectsPage() {
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
 
-                                    {/* Gradient overlay */}
                                     <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/60 transition-all duration-500" />
 
-                                    {/* Minimal corner accents */}
                                     <div className="absolute top-6 left-6 w-8 h-8 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-all duration-500" />
                                     <div className="absolute top-6 right-6 w-8 h-8 border-t border-r border-white opacity-0 group-hover:opacity-100 transition-all duration-500" />
                                     <div className="absolute bottom-6 left-6 w-8 h-8 border-b border-l border-white opacity-0 group-hover:opacity-100 transition-all duration-500" />
                                     <div className="absolute bottom-6 right-6 w-8 h-8 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-all duration-500" />
 
-                                    {/* Hover content */}
                                     <div className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                         <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-body">
                                             {project.category} · {project.location} · {project.year}
@@ -158,7 +195,6 @@ export default function ProjectsPage() {
                                     </div>
                                 </div>
 
-                                {/* Default content (visible when not hovering) */}
                                 <div className="p-6 group-hover:opacity-0 transition-opacity duration-300">
                                     <span className="text-charcoal/40 text-[10px] tracking-[0.2em] uppercase font-body">
                                         {project.category} · {project.year}
@@ -172,25 +208,7 @@ export default function ProjectsPage() {
                     </div>
                 </div>
             </section>
-
-            {/* Stats Bar */}
-            <section className="py-12 md:py-20 bg-off-white">
-                <div className="w-full px-4 sm:px-8 lg:px-12">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                        {[
-                            { number: '150+', label: 'Completed Projects' },
-                            { number: '2.5M', label: 'Square Feet Designed' },
-                            { number: '40+', label: 'Industry Awards' },
-                            { number: '98%', label: 'Client Satisfaction' },
-                        ].map((stat) => (
-                            <div key={stat.label}>
-                                <span className="font-display text-3xl md:text-4xl text-charcoal">{stat.number}</span>
-                                <p className="text-charcoal/40 text-xs tracking-[0.15em] uppercase mt-2 font-body">{stat.label}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            */}
         </>
     );
 }

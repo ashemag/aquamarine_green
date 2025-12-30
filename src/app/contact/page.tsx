@@ -43,7 +43,7 @@ export default function ContactPage() {
     };
 
     return (
-        <section className="relative bg-white overflow-hidden min-h-[calc(100vh-5rem)] flex items-center">
+        <section className="relative bg-white overflow-hidden min-h-[calc(100vh-5rem)] py-8 md:py-0 flex items-center">
             <div className="absolute inset-0 chevron-pattern" />
 
             <div className="relative w-full px-4 sm:px-8 lg:px-12 flex justify-center py-8">

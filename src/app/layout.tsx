@@ -17,10 +17,40 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Aquamarine Green | Miami Design-Build",
-  description: "Blending modern elegance with intelligent design to create extraordinary spaces in Miami, Bal Harbour, and the Palm Beach Areas.",
+  title: "Aquamarine Green | Miami Design-Build, Interiors & Renovation",
+  description: "Soho meets South Beach. Aquamarine Green brings New York's modern, minimal elegance to Miami. Design-build, interiors, and renovation across Miami, Bal Harbour, and the Palm Beach Areas.",
+  keywords: ["Miami design build", "interior design Miami", "renovation Miami", "South Beach interior design", "Bal Harbour design", "Palm Beach renovation", "modern minimalist design", "luxury interiors Miami"],
+  authors: [{ name: "Aquamarine Green" }],
+  creator: "Aquamarine Green",
   icons: {
     icon: '/icon.svg',
+    apple: '/icon.svg',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://aquamarinegreen.com',
+    siteName: 'Aquamarine Green',
+    title: 'Aquamarine Green | Miami Design-Build, Interiors & Renovation',
+    description: 'Soho meets South Beach. Aquamarine Green brings New York\'s modern, minimal elegance to Miami. Design-build, interiors, and renovation.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Aquamarine Green - Miami Design-Build',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Aquamarine Green | Miami Design-Build, Interiors & Renovation',
+    description: 'Soho meets South Beach. Modern, minimal elegance for Miami homes and commercial spaces.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

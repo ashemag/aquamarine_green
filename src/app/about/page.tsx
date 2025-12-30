@@ -1,40 +1,43 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'About | Aquamarine Green',
+    description: 'Soho meets South Beach. For over a decade, Aquamarine Green has brought New York\'s modern, minimal elegance to Miami through design-build, interiors, and renovation.',
+    openGraph: {
+        title: 'About | Aquamarine Green',
+        description: 'Soho meets South Beach. For over a decade, Aquamarine Green has brought New York\'s modern, minimal elegance to Miami.',
+    },
+};
+
 const team = [
     {
-        name: 'Elena Vasquez',
-        role: 'Principal Architect',
+        name: 'Lily Schwabe',
+        role: 'Founder',
+        email: 'lily@aquamarinegreen.com',
         image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80',
     },
     {
-        name: 'Marcus Chen',
-        role: 'Design Director',
-        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80',
-    },
-    {
-        name: 'Sofia Rodriguez',
-        role: 'Interior Design Lead',
-        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80',
-    },
-    {
-        name: 'James Mitchell',
-        role: 'Construction Director',
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
+        name: 'Ben Peress',
+        role: 'Build Design Associate & Realtor',
+        email: 'ben@aquamarinegreen.com',
+        image: 'https://placehold.co/400x533/f5f5f5/1a1a1a?text=BP',
     },
 ];
 
 const values = [
     {
-        title: 'Heritage',
-        description: 'We honor Miami\'s rich architectural history, weaving Art Deco elegance into every design.',
+        title: 'Philosophy',
+        description: 'Soho meets South Beach—bringing New York\'s modern, minimal elegance to Miami\'s coastal lifestyle.',
         number: '01',
     },
     {
-        title: 'Innovation',
-        description: 'Cutting-edge sustainable technology meets timeless aesthetics.',
+        title: 'Precision',
+        description: 'Every detail is executed with meticulous care, from concept to completion.',
         number: '02',
     },
     {
-        title: 'Craftsmanship',
-        description: 'Every detail is executed with precision and care by master artisans.',
+        title: 'Simplicity',
+        description: 'Clean lines, refined materials, and spaces that breathe sophistication.',
         number: '03',
     },
     {
@@ -56,43 +59,24 @@ const timeline = [
 export default function AboutPage() {
     return (
         <>
-            {/* Hero Section */}
-            <section className="relative py-16 md:py-32 bg-white overflow-hidden">
+            {/* Hero Section - Centered */}
+            <section className="relative min-h-[60vh] md:min-h-[calc(100vh-5rem)] flex items-center justify-center bg-white overflow-hidden">
                 <div className="absolute inset-0 chevron-pattern" />
 
-                <div className="relative w-full px-4 sm:px-8 lg:px-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                        <div>
-                            <span className="text-charcoal/30 font-body text-xs tracking-[0.2em] uppercase">Our Story</span>
+                <div className="relative w-full px-4 sm:px-8 lg:px-12 max-w-3xl mx-auto text-center py-16">
+                    <span className="text-charcoal/30 font-body text-xs tracking-[0.2em] uppercase">Our Story</span>
 
-                            <h1 className="font-display text-4xl md:text-5xl text-charcoal mt-4 mb-8">
-                                Building Miami&apos;s
-                                <span className="block text-charcoal/40">Future</span>
-                            </h1>
+                    <h1 className="font-display text-4xl md:text-5xl text-charcoal mt-4 mb-8">
+                        Soho Meets
+                        <span className="block text-charcoal/40">South Beach</span>
+                    </h1>
 
-                            <p className="font-body text-charcoal/60 leading-relaxed mb-6">
-                                For over two decades, Aquamarine Green has been at the forefront of
-                                Miami&apos;s architectural renaissance. Founded with a passion for
-                                preserving the city&apos;s Art Deco heritage while pushing the boundaries
-                                of modern design, we&apos;ve become synonymous with excellence in South Florida.
-                            </p>
-
-                            <p className="font-body text-charcoal/60 leading-relaxed">
-                                Our integrated design-build approach ensures that every project—from
-                                intimate residential renovations to landmark commercial developments—receives
-                                the same dedication to quality, innovation, and timeless beauty.
-                            </p>
-                        </div>
-
-                        <div className="relative">
-                            <img
-                                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80"
-                                alt="Deco Build Co team"
-                                className="w-full aspect-[4/5] object-cover"
-                            />
-                            <div className="absolute -bottom-4 -right-4 w-full h-full border border-charcoal/10 -z-10" />
-                        </div>
-                    </div>
+                    <p className="font-body text-charcoal/60 leading-relaxed">
+                        For over a decade, Aquamarine Green has brought a distinctive New York sensibility to Miami—infusing
+                        the area with the modern, minimal elegance of Soho. Across design-build, interiors,
+                        and renovation, we deliver spaces that blend sophistication with coastal living,
+                        crafted with precision and refined simplicity.
+                    </p>
                 </div>
             </section>
 
@@ -112,7 +96,7 @@ export default function AboutPage() {
                         {values.map((value) => (
                             <div
                                 key={value.title}
-                                className="group bg-charcoal p-10 transition-all duration-500 hover:bg-charcoal-light"
+                                className="group bg-charcoal p-6 md:p-10 transition-all duration-500 hover:bg-charcoal-light"
                             >
                                 <span className="text-white/10 font-display text-5xl group-hover:text-white/20 transition-colors">
                                     {value.number}
@@ -129,8 +113,8 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Timeline Section */}
-            <section className="py-16 md:py-32 bg-off-white relative">
+            {/* Timeline Section - Commented out for now */}
+            {/* <section className="py-16 md:py-32 bg-off-white relative">
                 <div className="w-full px-4 sm:px-8 lg:px-12 max-w-4xl mx-auto">
                     <div className="text-center mb-12 md:mb-20">
                         <span className="text-charcoal/30 font-body text-xs tracking-[0.2em] uppercase">Our Journey</span>
@@ -141,9 +125,9 @@ export default function AboutPage() {
 
                     <div className="relative">
                         {/* Center line - hidden on mobile, shown on md+ */}
-                        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-charcoal/10 -translate-x-1/2" />
-                        {/* Left line for mobile */}
-                        <div className="md:hidden absolute left-3 top-0 bottom-0 w-px bg-charcoal/10" />
+            {/* <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-charcoal/10 -translate-x-1/2" /> */}
+            {/* Left line for mobile */}
+            {/* <div className="md:hidden absolute left-3 top-0 bottom-0 w-px bg-charcoal/10" />
 
                         {timeline.map((item, index) => (
                             <div
@@ -152,29 +136,29 @@ export default function AboutPage() {
                                     }`}
                             >
                                 {/* Mobile: dot on left, content on right */}
-                                <div className="md:hidden relative z-10 w-3 h-3 bg-charcoal rotate-45 flex-shrink-0 mt-1" />
+            {/* <div className="md:hidden relative z-10 w-3 h-3 bg-charcoal rotate-45 flex-shrink-0 mt-1" /> */}
 
-                                {/* Mobile content */}
-                                <div className="md:hidden text-left">
+            {/* Mobile content */}
+            {/* <div className="md:hidden text-left">
                                     <span className="font-display text-xl text-charcoal">{item.year}</span>
                                     <p className="font-body text-charcoal/50 mt-1 text-sm">{item.event}</p>
-                                </div>
+                                </div> */}
 
-                                {/* Desktop: alternating layout */}
-                                <div className={`hidden md:block flex-1 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+            {/* Desktop: alternating layout */}
+            {/* <div className={`hidden md:block flex-1 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
                                     <span className="font-display text-2xl text-charcoal">{item.year}</span>
                                     <p className="font-body text-charcoal/50 mt-2 text-sm">{item.event}</p>
-                                </div>
+                                </div> */}
 
-                                {/* Center dot - desktop only */}
-                                <div className="hidden md:block relative z-10 w-3 h-3 bg-charcoal rotate-45 flex-shrink-0" />
+            {/* Center dot - desktop only */}
+            {/* <div className="hidden md:block relative z-10 w-3 h-3 bg-charcoal rotate-45 flex-shrink-0" />
 
                                 <div className="hidden md:block flex-1" />
                             </div>
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Team Section */}
             <section className="py-16 md:py-32 bg-white">
@@ -186,35 +170,45 @@ export default function AboutPage() {
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                        {team.map((member) => (
-                            <div
-                                key={member.name}
-                                className="group"
-                            >
-                                <div className="relative aspect-[3/4] overflow-hidden bg-light-gray">
-                                    <img
-                                        src={member.image}
-                                        alt={member.name}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                    <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-all duration-500" />
+                    <div className="flex justify-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-16 max-w-2xl">
+                            {team.map((member) => (
+                                <div
+                                    key={member.name}
+                                    className="group"
+                                >
+                                    <div className="relative aspect-[3/4] overflow-hidden bg-light-gray max-w-[280px] mx-auto">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-all duration-500" />
 
-                                    {/* Minimal corners */}
-                                    <div className="absolute top-4 left-4 w-6 h-6 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                    <div className="absolute bottom-4 right-4 w-6 h-6 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                </div>
+                                        {/* Minimal corners */}
+                                        <div className="absolute top-4 left-4 w-6 h-6 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        <div className="absolute bottom-4 right-4 w-6 h-6 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    </div>
 
-                                <div className="mt-6">
-                                    <h3 className="font-display text-lg text-charcoal">
-                                        {member.name}
-                                    </h3>
-                                    <p className="font-body text-charcoal/40 text-xs tracking-[0.15em] uppercase mt-1">
-                                        {member.role}
-                                    </p>
+                                    <div className="mt-6 text-center">
+                                        <h3 className="font-display text-lg text-charcoal">
+                                            {member.name}
+                                        </h3>
+                                        <p className="font-body text-charcoal/40 text-xs tracking-[0.15em] uppercase mt-1">
+                                            {member.role}
+                                        </p>
+                                        <div className="mt-3 pt-3 border-t border-charcoal/10">
+                                            <a
+                                                href={`mailto:${member.email}`}
+                                                className="font-body text-charcoal/50 text-xs tracking-wide hover:text-seafoam transition-colors duration-300"
+                                            >
+                                                {member.email}
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -223,18 +217,18 @@ export default function AboutPage() {
             <section className="py-16 md:py-32 bg-off-white relative">
                 <div className="relative w-full px-4 sm:px-8 lg:px-12 text-center max-w-3xl mx-auto">
                     <h2 className="font-display text-3xl md:text-4xl text-charcoal mb-8">
-                        Our Design-Build Approach
+                        Our Approach
                     </h2>
 
                     <p className="font-body text-charcoal/60 leading-relaxed">
-                        By uniting architecture, interior design, and construction under one roof,
-                        we deliver projects with unparalleled cohesion, efficiency, and attention to detail.
-                        From your first consultation to your final walkthrough, one dedicated team
-                        guides your vision to reality.
+                        Whether it&apos;s new residential construction, a commercial renovation, or a complete
+                        interior transformation, we bring the same refined sensibility to every project.
+                        Our integrated approach unites design-build, interiors, and renovation under one roof—delivering
+                        that Soho-meets-South Beach elegance with precision from first consultation to final walkthrough.
                     </p>
 
                     <div className="mt-10 md:mt-16 grid grid-cols-3 gap-4 md:gap-8">
-                        {['Design', 'Develop', 'Deliver'].map((phase, index) => (
+                        {['Design', 'Build', 'Refine'].map((phase, index) => (
                             <div key={phase} className="flex flex-col items-center">
                                 <span className="font-display text-3xl md:text-5xl text-charcoal/10">{index + 1}</span>
                                 <span className="font-display text-base md:text-xl text-charcoal -mt-2 md:-mt-3">{phase}</span>
