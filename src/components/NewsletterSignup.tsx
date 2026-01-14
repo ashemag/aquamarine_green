@@ -89,6 +89,37 @@ export default function NewsletterSignup({
     );
   }
 
+  // Show success state - replace form with message
+  if (status === "success" || status === "already") {
+    return (
+      <div className={cn("w-full", className)}>
+        <div
+          className={cn(
+            "flex items-center justify-center gap-3 py-4",
+            isDark ? "text-seafoam" : "text-charcoal"
+          )}
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+          <p className="font-body text-sm tracking-wide" role="status">
+            {message}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form
       onSubmit={onSubmit}
@@ -139,14 +170,7 @@ export default function NewsletterSignup({
         ) : (
           <p
             className={cn(
-              "font-body text-xs tracking-wide",
-              status === "error"
-                ? isDark
-                  ? "text-coral"
-                  : "text-coral"
-                : isDark
-                  ? "text-white/70"
-                  : "text-charcoal/60"
+              "font-body text-xs tracking-wide text-coral"
             )}
             role="status"
             aria-live="polite"
