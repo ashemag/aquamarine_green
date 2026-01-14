@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 export default function Footer() {
     return (
@@ -28,6 +29,13 @@ export default function Footer() {
                             Blending modern elegance with intelligent design to create
                             extraordinary spaces in Miami, Bal Harbour, and the Palm Beach Areas.
                         </p>
+
+                        <div className="mt-8 max-w-md">
+                            <p className="font-body text-white/30 text-xs tracking-[0.2em] uppercase mb-4">
+                                Newsletter
+                            </p>
+                            <NewsletterSignup theme="dark" tags={["website", "footer"]} />
+                        </div>
                     </div>
 
                     {/* Navigation */}

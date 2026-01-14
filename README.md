@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Newsletter (Buttondown) Setup
+
+The site uses a server-only API route (`/api/newsletter`) to subscribe emails via Buttondown.
+
+Set this environment variable in your local shell (or in your hosting provider, e.g. Vercel project settings):
+
+- **`BUTTONDOWN_API_KEY`**: your Buttondown API key
+
+Example (local dev):
+
+```bash
+export BUTTONDOWN_API_KEY="659f22c1-e52b-43e2-a050-4ea996592357"
+npm run dev
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

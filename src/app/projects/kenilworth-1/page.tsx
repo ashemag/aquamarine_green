@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 const projectImages = [
     { src: '/projects/kenilworth-1/image-25.jpg', alt: 'Open-plan living and dining with curated art collection' },
@@ -267,6 +268,13 @@ export default function KenilworthProjectPage() {
                     >
                         Start Your Project
                     </Link>
+
+                    <div className="mt-10 pt-10 border-t border-white/10 max-w-2xl mx-auto">
+                        <p className="font-body text-white/30 text-xs tracking-[0.2em] uppercase mb-5">
+                            Updates & new work
+                        </p>
+                        <NewsletterSignup theme="dark" tags={["website", "project-cta", "kenilworth-1"]} />
+                    </div>
                 </div>
             </section>
         </>

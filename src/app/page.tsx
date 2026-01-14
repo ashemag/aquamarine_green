@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import HeroVideo from '@/components/HeroVideo';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 const featuredProjects = [
   {
@@ -199,16 +200,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-32 bg-white relative">
+      {/* Newsletter CTA Section */}
+      <section className="py-20 md:py-32 bg-charcoal relative overflow-hidden">
+        <div className="absolute inset-0 art-deco-pattern opacity-30" />
+        
+        <div className="relative w-full px-4 sm:px-8 lg:px-12">
+          <div className="max-w-2xl mx-auto text-center">
+            <span className="text-seafoam font-body text-xs tracking-[0.2em] uppercase">Stay Connected</span>
+            <h2 className="font-display text-3xl md:text-5xl text-white mt-4 mb-6">
+              Design Insights &<br />
+              <span className="text-white/60">New Projects</span>
+            </h2>
+            <p className="font-body text-white/50 mb-10 leading-relaxed max-w-lg mx-auto">
+              Join our newsletter for exclusive looks at new projects, design inspiration, 
+              and insights into modern sustainable living.
+            </p>
+            
+            <div className="max-w-md mx-auto">
+              <NewsletterSignup theme="dark" tags={["website", "home-cta"]} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA Section */}
+      <section className="py-16 md:py-24 bg-white relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-charcoal/5" />
 
         <div className="relative w-full px-4 sm:px-8 lg:px-12 text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-3xl md:text-4xl text-charcoal mb-6">
+          <h2 className="font-display text-2xl md:text-3xl text-charcoal mb-4">
             Ready to Build Your Vision?
           </h2>
-          <p className="font-body text-charcoal/50 mb-12 leading-relaxed">
-            Let&apos;s create spaces that blend modern elegance with sustainable innovation.
+          <p className="font-body text-charcoal/50 mb-8 leading-relaxed text-sm">
             From concept to completion, we bring your vision to life—beautifully and responsibly.
           </p>
           <Link
