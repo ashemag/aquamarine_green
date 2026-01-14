@@ -41,12 +41,15 @@ export async function POST(req: Request) {
   }
 
   const payload = {
-    email,
+    email_address: email,
     tags: body?.tags,
-    referrer_url: req.headers.get("referer") ?? undefined,
+    metadata: {
+      source: "website",
+      referrer_url: req.headers.get("referer") ?? undefined,
+    },
   };
 
-  const res = await fetch("https://api.buttondown.email/v1/subscribers", {
+  const res = await fetch("https://api.buttondown.com/v1/subscribers", {
     method: "POST",
     headers: {
       Authorization: `Token ${apiKey}`,
