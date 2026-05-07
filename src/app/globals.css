@@ -200,6 +200,48 @@ body {
   animation: scaleIn 0.5s ease-out forwards;
 }
 
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes slideEnter {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideEnterReverse {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-enter {
+  animation: slideEnter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-enter-reverse {
+  animation: slideEnterReverse 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
 /* Delay utilities */
 .delay-100 {
   animation-delay: 100ms;

@@ -41,15 +41,12 @@ export async function POST(req: Request) {
   }
 
   const payload = {
-    email_address: email,
+    email,
     tags: body?.tags,
-    metadata: {
-      source: "website",
-      referrer_url: req.headers.get("referer") ?? undefined,
-    },
+    referrer_url: req.headers.get("referer") ?? undefined,
   };
 
-  const res = await fetch("https://api.buttondown.com/v1/subscribers", {
+  const res = await fetch("https://api.buttondown.email/v1/subscribers", {
     method: "POST",
     headers: {
       Authorization: `Token ${apiKey}`,
@@ -63,23 +60,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  // Buttondown returns 400 for duplicates and validation errors.
-  let errorData: { detail?: string; code?: string; email_address?: string[] } | undefined;
+  // Buttondown returns 400/409 for duplicates and validation.
+  let errorDetail: string | undefined;
   try {
-    errorData = await res.json();
+    const data = (await res.json()) as { detail?: string };
+    errorDetail = data?.detail;
   } catch {
     // ignore
   }
 
-  // Check if this is a duplicate subscriber (400 with email already exists)
-  const errorString = JSON.stringify(errorData ?? {}).toLowerCase();
-  const isDuplicate =
-    res.status === 400 &&
-    (errorString.includes("already") ||
-      errorString.includes("exists") ||
-      errorString.includes("subscriber with this email"));
-
-  if (isDuplicate) {
+  if (res.status === 409) {
+    // Already subscribed.
     return NextResponse.json({ ok: true, alreadySubscribed: true });
   }
 
@@ -87,8 +78,8 @@ export async function POST(req: Request) {
     {
       ok: false,
       error:
-        errorData?.detail ??
-        "We couldn't subscribe you right now. Please try again in a moment.",
+        errorDetail ??
+        "We couldn’t subscribe you right now. Please try again in a moment.",
     },
     { status: 400 }
   );
