@@ -41,7 +41,7 @@ export async function POST(req: Request) {
   }
 
   const payload = {
-    email,
+    email_address: email,
     tags: body?.tags,
     referrer_url: req.headers.get("referer") ?? undefined,
   };
