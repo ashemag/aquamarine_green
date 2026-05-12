@@ -99,7 +99,7 @@ export default function AboutPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
                         {/* Founder */}
                         <div className="flex flex-col items-center text-center">
-                            <div className="relative w-48 h-48 md:w-56 md:h-56 mb-6">
+                            <div className="relative w-56 h-56 md:w-72 md:h-72 mb-6">
                                 <img
                                     src={founder.image}
                                     alt={founder.name}

@@ -19,9 +19,28 @@ export default function Home() {
     <>
       <HeroVideo />
 
+      {/* Definition Band */}
+      <section className="bg-white relative">
+        <div className="w-full px-4 sm:px-8 lg:px-12">
+          <div className="max-w-2xl mx-auto py-16 md:py-24 text-center">
+            <div className="w-px h-10 md:h-12 bg-charcoal/15 mx-auto mb-8 md:mb-10" />
+
+            <p className="font-body text-charcoal/70 leading-[1.9] text-base md:text-lg">
+              A <em className="font-display italic text-charcoal">build design consultant</em> bridges the space between
+              architectural vision and the craft of construction, offering expert counsel,
+              design development, and technical guidance at every stage of a building&apos;s life.
+              As the client&apos;s trusted representative, we steward the design, uphold code
+              compliance, and coordinate with contractors to deliver work that is as functional
+              as it is beautifully resolved.
+            </p>
+
+            <div className="w-px h-10 md:h-12 bg-charcoal/15 mx-auto mt-8 md:mt-10" />
+          </div>
+        </div>
+      </section>
+
       {/* Featured Projects Section */}
-      <section className="py-16 md:py-32 bg-white relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-charcoal/5" />
+      <section className="pb-16 md:pb-32 bg-white relative">
 
         <div className="w-full px-4 sm:px-8 lg:px-12">
           {/* Section Header */}

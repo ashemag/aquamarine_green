@@ -8,7 +8,6 @@ type SubscribeRequest = {
 };
 
 function isValidEmail(email: string) {
-  // Simple, pragmatic check (server-side).
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
@@ -60,7 +59,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  // Buttondown returns 400/409 for duplicates and validation.
   let errorDetail: string | undefined;
   try {
     const data = (await res.json()) as { detail?: string };
@@ -69,20 +67,18 @@ export async function POST(req: Request) {
     // ignore
   }
 
-  if (res.status === 409) {
-    // Already subscribed.
+  if (
+    res.status === 409 ||
+    (errorDetail && /already subscribed/i.test(errorDetail))
+  ) {
     return NextResponse.json({ ok: true, alreadySubscribed: true });
   }
 
   return NextResponse.json(
     {
       ok: false,
-      error:
-        errorDetail ??
-        "We couldn’t subscribe you right now. Please try again in a moment.",
+      error: "We couldn't subscribe you right now. Please try again in a moment.",
     },
     { status: 400 }
   );
 }
-
-
