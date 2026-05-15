@@ -16,7 +16,7 @@ export default function PasswordGate({ children, title, subtitle }: PasswordGate
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.toLowerCase().trim() === 'lilyschwabe') {
+    if (password.toLowerCase().trim() === 'kenilworth1') {
       setUnlocked(true);
       setError(false);
     } else {

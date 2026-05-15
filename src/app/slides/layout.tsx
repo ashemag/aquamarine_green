@@ -5,7 +5,20 @@ export const metadata: Metadata = {
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+    notranslate: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noarchive: true,
+      nosnippet: true,
+      noimageindex: true,
+    },
   },
+  referrer: "no-referrer",
 };
 
 export default function SlidesLayout({
@@ -14,14 +27,15 @@ export default function SlidesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="slides-layout -mt-20">
+    <div className="slides-layout">
       <style>{`
-        .slides-layout ~ footer,
-        body:has(.slides-layout) nav {
+        body:has(.slides-layout) nav,
+        body:has(.slides-layout) footer {
           display: none !important;
         }
         body:has(.slides-layout) main {
           padding-top: 0 !important;
+          min-height: 0 !important;
         }
       `}</style>
       {children}

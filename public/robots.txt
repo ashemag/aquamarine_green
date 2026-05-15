@@ -7,4 +7,9 @@ User-agent: *
 Disallow: /secrets/
 Disallow: /secrets-images/
 
+# Private client presentations — never index
+User-agent: *
+Disallow: /slides/
+Disallow: /slides
+
 
