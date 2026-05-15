@@ -18,11 +18,15 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.aquamarinegreen.com'),
   title: "Aquamarine Green | Miami Design-Build, Interiors & Renovation",
   description: "Soho meets South Beach. Aquamarine Green brings New York's modern, minimal elegance to Miami. Design-build, interiors, and renovation across Miami, Bal Harbour, and the Palm Beach Areas.",
   keywords: ["Miami design build", "interior design Miami", "renovation Miami", "South Beach interior design", "Bal Harbour design", "Palm Beach renovation", "modern minimalist design", "luxury interiors Miami"],
   authors: [{ name: "Aquamarine Green" }],
   creator: "Aquamarine Green",
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: '/icon.svg',
     apple: '/icon.svg',
@@ -30,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://aquamarinegreen.com',
+    url: 'https://www.aquamarinegreen.com',
     siteName: 'Aquamarine Green',
     title: 'Aquamarine Green | Miami Design-Build, Interiors & Renovation',
     description: 'Soho meets South Beach. Aquamarine Green brings New York\'s modern, minimal elegance to Miami. Design-build, interiors, and renovation.',
@@ -39,7 +43,8 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Aquamarine Green - Miami Design-Build',
+        type: 'image/jpeg',
+        alt: 'Aquamarine Green — Miami Design-Build, Interiors & Renovation',
       },
     ],
   },
@@ -47,7 +52,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Aquamarine Green | Miami Design-Build, Interiors & Renovation',
     description: 'Soho meets South Beach. Modern, minimal elegance for Miami homes and commercial spaces.',
-    images: ['/og-image.jpg'],
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Aquamarine Green — Miami Design-Build, Interiors & Renovation',
+      },
+    ],
   },
   robots: {
     index: true,
