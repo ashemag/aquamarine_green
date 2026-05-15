@@ -2,7 +2,7 @@
 
 import PasswordGate from '@/components/PasswordGate';
 import Image from 'next/image';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const IMG_BASE = '/slides/kenilworth-social-club';
 
@@ -711,13 +711,36 @@ export default function KenilworthSocialClubSlides() {
     return () => window.removeEventListener('keydown', handleKey);
   }, [goNext, goPrev]);
 
+  // Touch swipe gestures for mobile
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) goNext();
+    else goPrev();
+  };
+
   const slide = slides[current];
   const animClass =
     direction === 'next' ? 'animate-slide-enter' : 'animate-slide-enter-reverse';
 
   return (
     <PasswordGate title="Kenilworth Social Club" subtitle="Design Presentation">
-      <div className="relative h-screen overflow-hidden bg-off-white">
+      <div
+        className="relative h-screen h-[100dvh] overflow-hidden bg-off-white"
+        style={{ touchAction: 'pan-y' }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div key={current} className={`h-full ${animClass}`}>
           {slide.type === 'cover' && <CoverSlide slide={slide} />}
           {slide.type === 'quote' && <QuoteSlide slide={slide} />}
@@ -735,15 +758,15 @@ export default function KenilworthSocialClubSlides() {
           {slide.type === 'closing' && <ClosingSlide slide={slide} />}
         </div>
 
-        {/* Side chevrons — vertically centered */}
+        {/* Side chevrons — vertically centered, hidden on mobile (use swipe instead) */}
         <button
           onClick={goPrev}
           disabled={current === 0}
           aria-label="Previous slide"
-          className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full border border-charcoal/10 bg-white/80 backdrop-blur-sm text-charcoal/50 hover:text-charcoal hover:border-charcoal/30 hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all"
+          className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 items-center justify-center rounded-full border border-charcoal/10 bg-white/80 backdrop-blur-sm text-charcoal/50 hover:text-charcoal hover:border-charcoal/30 hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all"
         >
           <svg
-            className="w-4 h-4 md:w-5 md:h-5"
+            className="w-5 h-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -761,10 +784,10 @@ export default function KenilworthSocialClubSlides() {
           onClick={goNext}
           disabled={current === total - 1}
           aria-label="Next slide"
-          className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full border border-charcoal/10 bg-white/80 backdrop-blur-sm text-charcoal/50 hover:text-charcoal hover:border-charcoal/30 hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all"
+          className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 items-center justify-center rounded-full border border-charcoal/10 bg-white/80 backdrop-blur-sm text-charcoal/50 hover:text-charcoal hover:border-charcoal/30 hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all"
         >
           <svg
-            className="w-4 h-4 md:w-5 md:h-5"
+            className="w-5 h-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -777,6 +800,28 @@ export default function KenilworthSocialClubSlides() {
             />
           </svg>
         </button>
+
+        {/* Mobile-only: swipe hint shown on first slide */}
+        {current === 0 && (
+          <div className="md:hidden absolute top-4 right-4 z-30 pointer-events-none flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal/5 backdrop-blur-sm">
+            <svg
+              className="w-3 h-3 text-charcoal/40"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+            <span className="font-body text-[9px] tracking-[0.2em] uppercase text-charcoal/40">
+              Swipe
+            </span>
+          </div>
+        )}
 
         {/* Bottom chrome — dot indicators + branding + counter */}
         <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none">
@@ -797,14 +842,14 @@ export default function KenilworthSocialClubSlides() {
             </div>
           </div>
 
-          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-12">
-            <span className="font-body text-charcoal/30 text-[10px] tracking-[0.25em]">
+          <div className="absolute bottom-6 md:bottom-8 right-4 md:right-12">
+            <span className="font-body text-charcoal/30 text-[9px] md:text-[10px] tracking-[0.25em]">
               {String(current + 1).padStart(2, '0')} /{' '}
               {String(total).padStart(2, '0')}
             </span>
           </div>
 
-          <div className="absolute bottom-6 md:bottom-8 left-6 md:left-12">
+          <div className="hidden md:block absolute bottom-6 md:bottom-8 left-12">
             <span className="font-body text-charcoal/30 text-[10px] tracking-[0.25em] uppercase">
               Aquamarine Green
             </span>
@@ -844,20 +889,20 @@ function CoverSlide({ slide }: { slide: Extract<Slide, { type: 'cover' }> }) {
     <div className="relative h-full flex items-center justify-center bg-off-white overflow-hidden">
       <ArtDecoBackdrop />
 
-      <div className="relative w-full max-w-5xl px-8 md:px-16 text-center">
-        <div className="flex flex-col items-center gap-3 mb-12">
+      <div className="relative w-full max-w-5xl px-6 md:px-16 text-center">
+        <div className="flex flex-col items-center gap-3 mb-8 md:mb-12">
           <div className="w-3 h-3 bg-seafoam rotate-45" />
           <Eyebrow>{slide.eyebrow}</Eyebrow>
         </div>
 
-        <h1 className="font-display italic text-4xl md:text-6xl lg:text-7xl text-charcoal leading-[1.05] mb-8">
+        <h1 className="font-display italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-charcoal leading-[1.05] mb-6 md:mb-8">
           {slide.title}
         </h1>
 
-        <Rule className="mx-auto w-24 mb-8" />
+        <Rule className="mx-auto w-24 mb-6 md:mb-8" />
 
         {slide.subtitle && (
-          <p className="font-body text-charcoal/55 text-base md:text-lg tracking-wide max-w-2xl mx-auto">
+          <p className="font-body text-charcoal/55 text-sm md:text-lg tracking-wide max-w-2xl mx-auto">
             {slide.subtitle}
           </p>
         )}
@@ -871,19 +916,19 @@ function QuoteSlide({ slide }: { slide: Extract<Slide, { type: 'quote' }> }) {
     <div className="relative h-full flex items-center justify-center bg-off-white overflow-hidden">
       <ArtDecoBackdrop />
 
-      <div className="relative w-full max-w-3xl px-8 md:px-16 text-center">
+      <div className="relative w-full max-w-3xl px-6 md:px-16 text-center">
         <Eyebrow>{slide.eyebrow}</Eyebrow>
-        <Rule className="mx-auto w-24 mt-6 mb-12" />
+        <Rule className="mx-auto w-24 mt-4 mb-8 md:mt-6 md:mb-12" />
 
-        <blockquote className="font-display italic text-charcoal text-2xl md:text-3xl lg:text-4xl leading-[1.3] mb-10">
+        <blockquote className="font-display italic text-charcoal text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[1.3] mb-6 md:mb-10">
           {slide.body}
         </blockquote>
 
-        <p className="font-body text-charcoal/50 text-sm md:text-base leading-relaxed">
+        <p className="font-body text-charcoal/50 text-xs md:text-base leading-relaxed">
           {slide.attribution}
         </p>
 
-        <Rule className="mx-auto w-24 mt-12" />
+        <Rule className="mx-auto w-24 mt-8 md:mt-12" />
       </div>
     </div>
   );
@@ -894,20 +939,20 @@ function IntroSlide({ slide }: { slide: Extract<Slide, { type: 'intro' }> }) {
     <div className="relative h-full flex items-center justify-center bg-off-white overflow-hidden">
       <ArtDecoBackdrop />
 
-      <div className="relative w-full max-w-4xl px-8 md:px-16 text-center">
-        <div className="flex justify-center mb-8">
+      <div className="relative w-full max-w-4xl px-6 md:px-16 text-center">
+        <div className="flex justify-center mb-6 md:mb-8">
           <div className="w-2 h-2 bg-seafoam rotate-45" />
         </div>
 
         <Eyebrow>{slide.eyebrow}</Eyebrow>
 
-        <h1 className="mt-10 font-display italic text-5xl md:text-7xl lg:text-8xl text-charcoal leading-[1.05] mb-10">
+        <h1 className="mt-6 md:mt-10 font-display italic text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-charcoal leading-[1.05] mb-6 md:mb-10">
           {slide.title}
         </h1>
 
-        <Rule className="mx-auto w-16 opacity-30 mb-10" />
+        <Rule className="mx-auto w-16 opacity-30 mb-6 md:mb-10" />
 
-        <p className="font-body text-charcoal/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+        <p className="font-body text-charcoal/60 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
           {slide.body}
         </p>
       </div>
@@ -918,36 +963,36 @@ function IntroSlide({ slide }: { slide: Extract<Slide, { type: 'intro' }> }) {
 function SplitSlide({ slide }: { slide: Extract<Slide, { type: 'split' }> }) {
   const imageLeft = slide.imagePosition === 'left';
   return (
-    <div className="h-full grid grid-cols-1 lg:grid-cols-12 bg-off-white">
+    <div className="h-full grid grid-rows-[40vh_1fr] lg:grid-rows-none lg:grid-cols-12 bg-off-white">
       <div
-        className={`lg:col-span-5 flex items-center px-8 md:px-16 lg:px-20 py-12 lg:py-0 ${
-          imageLeft ? 'order-2 lg:order-2' : 'order-2 lg:order-1'
+        className={`row-start-2 lg:row-auto lg:col-span-5 flex items-center px-6 md:px-12 lg:px-20 py-8 md:py-12 lg:py-0 pb-20 lg:pb-0 overflow-y-auto ${
+          imageLeft ? 'lg:order-2' : 'lg:order-1'
         }`}
       >
         <div className="max-w-md">
           <Eyebrow>{slide.eyebrow}</Eyebrow>
 
-          <h2 className="mt-6 font-display italic text-4xl md:text-5xl lg:text-6xl text-charcoal leading-[1.05] mb-6">
+          <h2 className="mt-4 md:mt-6 font-display italic text-3xl md:text-5xl lg:text-6xl text-charcoal leading-[1.05] mb-4 md:mb-6">
             {slide.title}
           </h2>
 
-          <Rule className="w-10 mb-8" />
+          <Rule className="w-10 mb-6 md:mb-8" />
 
           {slide.subtitle && (
-            <p className="font-display text-charcoal/80 text-lg md:text-xl leading-snug mb-6">
+            <p className="font-display text-charcoal/80 text-base md:text-xl leading-snug mb-4 md:mb-6">
               {slide.subtitle}
             </p>
           )}
 
-          <div className="font-body text-charcoal/55 text-sm md:text-[15px] leading-relaxed">
+          <div className="font-body text-charcoal/55 text-[13px] md:text-[15px] leading-relaxed">
             {slide.body}
           </div>
         </div>
       </div>
 
       <div
-        className={`lg:col-span-7 relative min-h-[45vh] lg:min-h-0 ${
-          imageLeft ? 'order-1 lg:order-1' : 'order-1 lg:order-2'
+        className={`row-start-1 lg:row-auto lg:col-span-7 relative ${
+          imageLeft ? 'lg:order-1' : 'lg:order-2'
         } bg-charcoal`}
       >
         <Image
@@ -966,28 +1011,28 @@ function SplitSlide({ slide }: { slide: Extract<Slide, { type: 'split' }> }) {
 
 function BeforeSlide({ slide }: { slide: Extract<Slide, { type: 'before' }> }) {
   return (
-    <div className="h-full grid grid-cols-1 lg:grid-cols-12 bg-off-white">
-      <div className="lg:col-span-5 flex items-center px-8 md:px-16 lg:px-20 py-12 lg:py-0 order-2 lg:order-1">
+    <div className="h-full grid grid-rows-[40vh_1fr] lg:grid-rows-none lg:grid-cols-12 bg-off-white">
+      <div className="row-start-2 lg:row-auto lg:col-span-5 flex items-center px-6 md:px-12 lg:px-20 py-8 md:py-12 lg:py-0 pb-20 lg:pb-0 overflow-y-auto lg:order-1">
         <div className="max-w-md">
           <Eyebrow>{slide.eyebrow}</Eyebrow>
 
-          <h2 className="mt-6 font-display italic text-4xl md:text-5xl lg:text-6xl text-charcoal leading-[1.05] mb-6">
+          <h2 className="mt-4 md:mt-6 font-display italic text-3xl md:text-5xl lg:text-6xl text-charcoal leading-[1.05] mb-4 md:mb-6">
             {slide.title}
           </h2>
 
-          <Rule className="w-10 mb-8" />
+          <Rule className="w-10 mb-6 md:mb-8" />
 
-          <p className="font-display text-charcoal/80 text-lg md:text-xl leading-snug mb-6">
+          <p className="font-display text-charcoal/80 text-base md:text-xl leading-snug mb-4 md:mb-6">
             {slide.subtitle}
           </p>
 
-          <p className="font-body text-charcoal/55 text-sm md:text-[15px] leading-relaxed">
+          <p className="font-body text-charcoal/55 text-[13px] md:text-[15px] leading-relaxed">
             {slide.body}
           </p>
         </div>
       </div>
 
-      <div className="lg:col-span-7 relative min-h-[45vh] lg:min-h-0 order-1 lg:order-2 grid grid-rows-2 gap-1 bg-charcoal p-1">
+      <div className="row-start-1 lg:row-auto lg:col-span-7 relative lg:order-2 grid grid-cols-2 lg:grid-cols-none lg:grid-rows-2 gap-1 bg-charcoal p-1">
         {slide.images.map((img, i) => (
           <div key={i} className="relative overflow-hidden bg-charcoal">
             <Image
@@ -995,7 +1040,7 @@ function BeforeSlide({ slide }: { slide: Extract<Slide, { type: 'before' }> }) {
               alt={img.alt}
               fill
               priority={i === 0}
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              sizes="(max-width: 1024px) 50vw, 60vw"
               className="object-cover"
             />
           </div>
@@ -1025,7 +1070,7 @@ function ImageFeatureSlide({
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent pointer-events-none" />
 
       {/* Top eyebrow */}
-      <div className="absolute top-8 md:top-12 left-8 md:left-16 z-10">
+      <div className="absolute top-6 md:top-12 left-6 md:left-16 z-10">
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-1.5 bg-seafoam rotate-45" />
           <span className="font-body text-[10px] md:text-[11px] tracking-[0.35em] uppercase text-white/80">
@@ -1035,17 +1080,17 @@ function ImageFeatureSlide({
       </div>
 
       {/* Bottom content */}
-      <div className="absolute bottom-20 md:bottom-28 left-8 md:left-16 right-8 md:right-16 z-10 max-w-3xl">
+      <div className="absolute bottom-16 md:bottom-28 left-6 md:left-16 right-6 md:right-16 z-10 max-w-3xl">
         {slide.title && (
-          <h2 className="font-display italic text-white text-3xl md:text-5xl lg:text-6xl leading-[1.05] mb-4">
+          <h2 className="font-display italic text-white text-2xl md:text-5xl lg:text-6xl leading-[1.05] mb-3 md:mb-4">
             {slide.title}
           </h2>
         )}
-        <p className="font-display text-white text-2xl md:text-3xl tracking-wide uppercase mb-3 font-light">
+        <p className="font-display text-white text-lg md:text-3xl tracking-wide uppercase mb-2 md:mb-3 font-light">
           {slide.caption}
         </p>
         {slide.captionSubtitle && (
-          <p className="font-body text-white/70 text-sm md:text-base leading-relaxed max-w-xl">
+          <p className="font-body text-white/70 text-xs md:text-base leading-relaxed max-w-xl">
             {slide.captionSubtitle}
           </p>
         )}
@@ -1078,7 +1123,7 @@ function ComparisonSlide({
 
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
 
-      <div className="absolute top-8 md:top-12 left-8 md:left-16 z-10">
+      <div className="absolute top-6 md:top-12 left-6 md:left-16 z-10">
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-1.5 bg-seafoam rotate-45" />
           <span className="font-body text-[10px] md:text-[11px] tracking-[0.35em] uppercase text-white/80">
@@ -1088,8 +1133,8 @@ function ComparisonSlide({
       </div>
 
       {slide.caption && (
-        <div className="absolute bottom-24 md:bottom-32 left-8 md:left-16 right-8 md:right-16 z-10 max-w-3xl">
-          <p className="font-display italic text-white text-2xl md:text-4xl leading-tight">
+        <div className="absolute bottom-20 md:bottom-32 left-6 md:left-16 right-6 md:right-16 z-10 max-w-3xl">
+          <p className="font-display italic text-white text-lg md:text-4xl leading-tight">
             {slide.caption}
           </p>
         </div>
@@ -1197,32 +1242,32 @@ function TimelineSlide({
     <div className="relative h-full flex flex-col items-center justify-center bg-off-white overflow-hidden">
       <ArtDecoBackdrop />
 
-      <div className="relative w-full max-w-6xl px-8 md:px-16">
-        <div className="text-center mb-16">
+      <div className="relative w-full max-w-6xl px-6 md:px-16 pb-16 md:pb-0">
+        <div className="text-center mb-10 md:mb-16">
           <Eyebrow>{slide.eyebrow}</Eyebrow>
-          <h2 className="mt-6 font-display italic text-4xl md:text-6xl text-charcoal leading-[1.05]">
+          <h2 className="mt-4 md:mt-6 font-display italic text-3xl md:text-6xl text-charcoal leading-[1.05]">
             {slide.title}
           </h2>
-          <Rule className="mx-auto w-16 mt-6" />
+          <Rule className="mx-auto w-16 mt-4 md:mt-6" />
         </div>
 
         <div className="relative">
-          {/* Connecting line */}
-          <div className="absolute left-0 right-0 top-[34px] h-px bg-charcoal/10" />
+          {/* Connecting line — only on tablet+ where the row is horizontal */}
+          <div className="hidden md:block absolute left-0 right-0 top-[34px] h-px bg-charcoal/10" />
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 md:gap-12">
             {slide.milestones.map((m, i) => (
               <div key={i} className="relative flex flex-col items-center text-center">
-                <div className="relative z-10 w-[68px] h-[68px] rounded-full bg-off-white border border-charcoal/15 flex items-center justify-center mb-6">
-                  <div className="w-3 h-3 bg-seafoam rotate-45" />
+                <div className="relative z-10 w-12 h-12 md:w-[68px] md:h-[68px] rounded-full bg-off-white border border-charcoal/15 flex items-center justify-center mb-3 md:mb-6">
+                  <div className="w-2 h-2 md:w-3 md:h-3 bg-seafoam rotate-45" />
                 </div>
-                <p className="font-display text-charcoal text-xl md:text-2xl mb-1">
+                <p className="font-display text-charcoal text-lg md:text-2xl mb-1">
                   {m.date}
                 </p>
-                <p className="font-body text-charcoal/40 text-[11px] tracking-[0.2em] uppercase mb-4">
+                <p className="font-body text-charcoal/40 text-[10px] md:text-[11px] tracking-[0.2em] uppercase mb-2 md:mb-4">
                   {m.year}
                 </p>
-                <p className="font-body text-charcoal/65 text-sm md:text-[15px] leading-relaxed max-w-[200px]">
+                <p className="font-body text-charcoal/65 text-xs md:text-[15px] leading-relaxed max-w-[200px]">
                   {m.label}
                 </p>
               </div>
@@ -1241,19 +1286,19 @@ function ContractSlide({
 }) {
   return (
     <div className="h-full grid grid-cols-1 lg:grid-cols-12 bg-off-white overflow-hidden">
-      <div className="lg:col-span-7 px-8 md:px-16 lg:px-20 py-10 lg:py-16 pb-28 lg:pb-16 overflow-y-auto">
+      <div className="lg:col-span-7 px-6 md:px-12 lg:px-20 py-8 md:py-10 lg:py-16 pb-24 lg:pb-16 overflow-y-auto">
         <div className="max-w-2xl">
           <Eyebrow>{slide.eyebrow}</Eyebrow>
 
-          <h2 className="mt-6 font-display italic text-3xl md:text-4xl lg:text-5xl text-charcoal leading-[1.05] mb-3">
+          <h2 className="mt-4 md:mt-6 font-display italic text-2xl md:text-4xl lg:text-5xl text-charcoal leading-[1.05] mb-2 md:mb-3">
             {slide.title}
           </h2>
 
-          <p className="font-display text-seafoam/80 text-base md:text-lg tracking-wide uppercase mb-6">
+          <p className="font-display text-seafoam/80 text-sm md:text-lg tracking-wide uppercase mb-4 md:mb-6">
             {slide.sectionHeading}
           </p>
 
-          <Rule className="w-10 mb-8" />
+          <Rule className="w-10 mb-6 md:mb-8" />
 
           <div className="space-y-3">
             {slide.rows.map((row, i) => (
@@ -1319,27 +1364,27 @@ function TotalSlide({ slide }: { slide: Extract<Slide, { type: 'total' }> }) {
       />
       <div className="absolute inset-0 bg-gradient-to-tr from-charcoal/95 via-charcoal/60 to-charcoal/30" />
 
-      <div className="relative h-full flex items-center justify-center px-8 md:px-16">
+      <div className="relative h-full flex items-center justify-center px-6 md:px-16">
         <div className="text-center max-w-3xl">
-          <div className="flex flex-col items-center gap-4 mb-10">
+          <div className="flex flex-col items-center gap-3 md:gap-4 mb-8 md:mb-10">
             <div className="w-2 h-2 bg-seafoam rotate-45" />
             <span className="font-body text-[10px] md:text-[11px] tracking-[0.35em] uppercase text-white/60">
               {slide.eyebrow}
             </span>
           </div>
 
-          <h2 className="font-display italic text-white text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-10">
+          <h2 className="font-display italic text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-6 md:mb-10">
             {slide.title}
           </h2>
 
-          <Rule className="mx-auto w-16 mb-10" />
+          <Rule className="mx-auto w-16 mb-6 md:mb-10" />
 
-          <p className="font-display text-white text-6xl md:text-8xl lg:text-9xl tracking-tight mb-6">
+          <p className="font-display text-white text-[44px] sm:text-6xl md:text-8xl lg:text-9xl tracking-tight mb-4 md:mb-6">
             {slide.amount}
           </p>
 
           {slide.note && (
-            <p className="font-body italic text-white/50 text-sm md:text-base">
+            <p className="font-body italic text-white/50 text-xs md:text-base">
               {slide.note}
             </p>
           )}
@@ -1355,25 +1400,25 @@ function ClosingSlide({
   slide: Extract<Slide, { type: 'closing' }>;
 }) {
   return (
-    <div className="h-full grid grid-cols-1 lg:grid-cols-12 bg-off-white">
-      <div className="lg:col-span-6 flex items-center px-8 md:px-16 lg:px-20 py-12 lg:py-0 order-2 lg:order-1">
+    <div className="h-full grid grid-rows-[35vh_1fr] lg:grid-rows-none lg:grid-cols-12 bg-off-white">
+      <div className="row-start-2 lg:row-auto lg:col-span-6 flex items-center px-6 md:px-12 lg:px-20 py-8 md:py-12 lg:py-0 pb-20 lg:pb-0 overflow-y-auto lg:order-1">
         <div className="max-w-md">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-3 mb-5 md:mb-8">
             <div className="w-1.5 h-1.5 bg-seafoam rotate-45" />
             <Eyebrow>{slide.eyebrow}</Eyebrow>
           </div>
 
-          <h2 className="font-display italic text-4xl md:text-5xl lg:text-6xl text-charcoal leading-[1.05] mb-6">
+          <h2 className="font-display italic text-3xl md:text-5xl lg:text-6xl text-charcoal leading-[1.05] mb-4 md:mb-6">
             {slide.title}
           </h2>
 
-          <Rule className="w-10 mb-8" />
+          <Rule className="w-10 mb-6 md:mb-8" />
 
-          <p className="font-display text-charcoal/80 text-lg md:text-xl leading-snug mb-6">
+          <p className="font-display text-charcoal/80 text-base md:text-xl leading-snug mb-4 md:mb-6">
             {slide.subtitle}
           </p>
 
-          <div className="font-body text-charcoal/55 text-sm md:text-[15px] leading-relaxed mb-10">
+          <div className="font-body text-charcoal/55 text-[13px] md:text-[15px] leading-relaxed mb-6 md:mb-10">
             {slide.body}
           </div>
 
@@ -1389,7 +1434,7 @@ function ClosingSlide({
         </div>
       </div>
 
-      <div className="lg:col-span-6 relative min-h-[45vh] lg:min-h-0 order-1 lg:order-2 bg-charcoal">
+      <div className="row-start-1 lg:row-auto lg:col-span-6 relative lg:order-2 bg-charcoal">
         <Image
           src={slide.image}
           alt={slide.imageAlt}
